@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useMemo, useState } from "react";
 import { api } from "@/lib/qne-client";
@@ -13,6 +13,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
 import { exportToXlsx, type ExportColumn } from "@/lib/export-xlsx";
 import { Download, Trash2 } from "lucide-react";
+import type { BankAccount } from "./bank-accounts";
 
 export const Route = createFileRoute("/facilities")({
   head: () => ({
@@ -46,6 +47,15 @@ function FacilityFormPage() {
     queryKey: ["facilities"],
     queryFn: () => api.get<{ rows: Facility[] }>("/api/data/facilities"),
   });
+
+  const banksQ = useQuery({
+    queryKey: ["bank-accounts"],
+    queryFn: () => api.get<{ rows: BankAccount[] }>("/api/data/bank-accounts"),
+  });
+  const lendingBanks = useMemo(() => {
+    const names = (banksQ.data?.rows ?? []).filter((b) => b.is_active).map((b) => b.bank_name);
+    return Array.from(new Set(names)).sort();
+  }, [banksQ.data]);
 
   const preview = useMemo(() => {
     const limit = Number(form.total_limit || 0);
@@ -111,6 +121,10 @@ function FacilityFormPage() {
               className="grid grid-cols-1 gap-4 md:grid-cols-2"
               onSubmit={(e) => {
                 e.preventDefault();
+                if (!form.lending_bank) {
+                  toast.error("Select a lending bank");
+                  return;
+                }
                 mut.mutate({ ...form, id: form.id || undefined });
               }}
             >
@@ -118,7 +132,30 @@ function FacilityFormPage() {
                 <Input required value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} />
               </F>
               <F label="Lending bank">
-                <Input required value={form.lending_bank} onChange={(e) => setForm({ ...form, lending_bank: e.target.value })} />
+                {lendingBanks.length === 0 ? (
+                  <div className="rounded-md border border-dashed p-2 text-xs text-muted-foreground">
+                    No bank accounts yet.{" "}
+                    <Link to="/bank-accounts" className="font-medium text-primary underline-offset-4 hover:underline">
+                      Add one
+                    </Link>
+                  </div>
+                ) : (
+                  <Select
+                    value={form.lending_bank}
+                    onValueChange={(v) => setForm({ ...form, lending_bank: v })}
+                  >
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select a bank" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {lendingBanks.map((name) => (
+                        <SelectItem key={name} value={name}>
+                          {name}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                )}
               </F>
               <F label="Facility type">
                 <Select
