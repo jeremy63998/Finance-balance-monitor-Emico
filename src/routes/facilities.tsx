@@ -12,7 +12,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
 import { exportToXlsx, type ExportColumn } from "@/lib/export-xlsx";
-import { Download } from "lucide-react";
+import { Download, Trash2 } from "lucide-react";
 
 export const Route = createFileRoute("/facilities")({
   head: () => ({
@@ -62,6 +62,15 @@ function FacilityFormPage() {
       setForm(empty);
     },
     onError: (e: any) => toast.error(e?.message || "Failed to save"),
+  });
+
+  const del = useMutation({
+    mutationFn: (id: string) => api.del(`/api/data/facilities?id=${encodeURIComponent(id)}`),
+    onSuccess: () => {
+      toast.success("Facility deleted");
+      qc.invalidateQueries({ queryKey: ["facilities"] });
+    },
+    onError: (e: any) => toast.error(e?.message || "Failed to delete"),
   });
 
   function edit(f: Facility) {
@@ -214,11 +223,11 @@ function FacilityFormPage() {
           ) : (
             <ul className="divide-y">
               {(facQ.data?.rows ?? []).map((f) => (
-                <li key={f.id}>
+                <li key={f.id} className="flex items-center gap-1 px-2">
                   <button
                     type="button"
                     onClick={() => edit(f)}
-                    className="w-full px-4 py-3 text-left hover:bg-accent"
+                    className="min-w-0 flex-1 px-2 py-3 text-left hover:bg-accent"
                   >
                     <div className="flex items-center justify-between gap-2">
                       <span className="truncate text-sm font-medium">{f.name}</span>
@@ -228,6 +237,18 @@ function FacilityFormPage() {
                       {f.lending_bank} · Available {formatMoney(facilityAvailable(f), f.currency)}
                     </div>
                   </button>
+                  <Button
+                    type="button"
+                    size="icon"
+                    variant="ghost"
+                    title="Delete"
+                    disabled={del.isPending}
+                    onClick={() => {
+                      if (confirm(`Delete facility "${f.name}"?`)) del.mutate(f.id);
+                    }}
+                  >
+                    <Trash2 className="h-4 w-4" />
+                  </Button>
                 </li>
               ))}
             </ul>
