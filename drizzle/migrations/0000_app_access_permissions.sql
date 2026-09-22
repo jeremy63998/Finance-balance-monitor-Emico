@@ -1,0 +1,1 @@
+ALTER TABLE public.app_access ADD COLUMN IF NOT EXISTS permissions jsonb NOT NULL DEFAULT '{}'::jsonb;

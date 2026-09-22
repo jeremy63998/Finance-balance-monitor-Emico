@@ -1,0 +1,1 @@
+ALTER TABLE public.bank_accounts ADD COLUMN IF NOT EXISTS overdraft_limit NUMERIC NOT NULL DEFAULT 0;

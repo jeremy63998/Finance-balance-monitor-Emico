@@ -1,0 +1,1 @@
+ALTER TABLE public.facility_transactions ADD COLUMN IF NOT EXISTS txn_number TEXT;
