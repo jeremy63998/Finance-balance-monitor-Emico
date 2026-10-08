@@ -10,7 +10,7 @@
     "preview": "vite preview",
     "lint": "eslint .",
     "format": "prettier --write .",
-    "deploy": "vite build && npx wrangler deploy --config .output/server/wrangler.json"
+    "deploy": "vite build && npx wrangler deploy --config .output/server/wrangler.json --name finance-balance-monitor"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",
