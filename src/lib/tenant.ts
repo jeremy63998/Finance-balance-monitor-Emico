@@ -23,7 +23,8 @@ export type FeatureKey =
   | "facility_transactions"
   | "facility_history"
   | "transactions"
-  | "facility_list";
+  | "facility_list"
+  | "reconciliation";
 
 export type PermissionLevel = "none" | "view" | "edit";
 export type Permissions = Partial<Record<FeatureKey, PermissionLevel>>;
@@ -45,6 +46,7 @@ export const FEATURES: {
   { key: "facility_history", label: "Facility Transaction History", path: "/facility-history", description: "Full history of facility activity.", readOnly: true },
   { key: "transactions", label: "Transaction History", path: "/transactions", description: "Cash transaction history by bank." },
   { key: "facility_list", label: "Facility List", path: "/facility-list", description: "Facility balances with active drawdowns and LCs.", readOnly: true },
+  { key: "reconciliation", label: "Bank Reconciliation", path: "/reconciliation", description: "Scan bank statements and compare them with recorded transactions.", readOnly: true },
 ];
 
 export const DEFAULT_LEVEL: PermissionLevel = "edit";

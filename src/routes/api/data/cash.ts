@@ -10,7 +10,7 @@ export const Route = createFileRoute("/api/data/cash")({
       GET: async ({ request }) => {
         try {
           const { tenantCode } = await requireAppAuth(request, {
-            feature: ["cash", "transactions", "dashboard"],
+            feature: ["cash", "transactions", "dashboard", "reconciliation"],
           });
           const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
           const { data, error } = await supabaseAdmin

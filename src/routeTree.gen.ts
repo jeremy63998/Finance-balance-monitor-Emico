@@ -18,6 +18,7 @@ import { Route as FacilitiesRouteImport } from './routes/facilities'
 import { Route as FacilityHistoryRouteImport } from './routes/facility-history'
 import { Route as FacilityListRouteImport } from './routes/facility-list'
 import { Route as FacilityTransactionsRouteImport } from './routes/facility-transactions'
+import { Route as ReconciliationRouteImport } from './routes/reconciliation'
 import { Route as TransactionsRouteImport } from './routes/transactions'
 import { Route as ApiDataAppAccessRouteImport } from './routes/api/data/app-access'
 import { Route as ApiDataBankAccountsRouteImport } from './routes/api/data/bank-accounts'
@@ -26,6 +27,7 @@ import { Route as ApiDataExpectedRouteImport } from './routes/api/data/expected'
 import { Route as ApiDataFacilitiesRouteImport } from './routes/api/data/facilities'
 import { Route as ApiDataFacilityLcAmendmentsRouteImport } from './routes/api/data/facility-lc-amendments'
 import { Route as ApiDataFacilityTransactionsRouteImport } from './routes/api/data/facility-transactions'
+import { Route as ApiDataReconcileScanRouteImport } from './routes/api/data/reconcile-scan'
 import { Route as ApiDataFacilityTransactionsSettleRouteImport } from './routes/api/data/facility-transactions.settle'
 
 const IndexRoute = IndexRouteImport.update({
@@ -73,6 +75,11 @@ const FacilityTransactionsRoute = FacilityTransactionsRouteImport.update({
   path: '/facility-transactions',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ReconciliationRoute = ReconciliationRouteImport.update({
+  id: '/reconciliation',
+  path: '/reconciliation',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const TransactionsRoute = TransactionsRouteImport.update({
   id: '/transactions',
   path: '/transactions',
@@ -115,6 +122,11 @@ const ApiDataFacilityTransactionsRoute =
     path: '/api/data/facility-transactions',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ApiDataReconcileScanRoute = ApiDataReconcileScanRouteImport.update({
+  id: '/api/data/reconcile-scan',
+  path: '/api/data/reconcile-scan',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiDataFacilityTransactionsSettleRoute =
   ApiDataFacilityTransactionsSettleRouteImport.update({
     id: '/settle',
@@ -132,6 +144,7 @@ export interface FileRoutesByFullPath {
   '/facility-history': typeof FacilityHistoryRoute
   '/facility-list': typeof FacilityListRoute
   '/facility-transactions': typeof FacilityTransactionsRoute
+  '/reconciliation': typeof ReconciliationRoute
   '/transactions': typeof TransactionsRoute
   '/api/data/app-access': typeof ApiDataAppAccessRoute
   '/api/data/bank-accounts': typeof ApiDataBankAccountsRoute
@@ -140,6 +153,7 @@ export interface FileRoutesByFullPath {
   '/api/data/facilities': typeof ApiDataFacilitiesRoute
   '/api/data/facility-lc-amendments': typeof ApiDataFacilityLcAmendmentsRoute
   '/api/data/facility-transactions': typeof ApiDataFacilityTransactionsRouteWithChildren
+  '/api/data/reconcile-scan': typeof ApiDataReconcileScanRoute
   '/api/data/facility-transactions/settle': typeof ApiDataFacilityTransactionsSettleRoute
 }
 export interface FileRoutesByTo {
@@ -152,6 +166,7 @@ export interface FileRoutesByTo {
   '/facility-history': typeof FacilityHistoryRoute
   '/facility-list': typeof FacilityListRoute
   '/facility-transactions': typeof FacilityTransactionsRoute
+  '/reconciliation': typeof ReconciliationRoute
   '/transactions': typeof TransactionsRoute
   '/api/data/app-access': typeof ApiDataAppAccessRoute
   '/api/data/bank-accounts': typeof ApiDataBankAccountsRoute
@@ -160,6 +175,7 @@ export interface FileRoutesByTo {
   '/api/data/facilities': typeof ApiDataFacilitiesRoute
   '/api/data/facility-lc-amendments': typeof ApiDataFacilityLcAmendmentsRoute
   '/api/data/facility-transactions': typeof ApiDataFacilityTransactionsRouteWithChildren
+  '/api/data/reconcile-scan': typeof ApiDataReconcileScanRoute
   '/api/data/facility-transactions/settle': typeof ApiDataFacilityTransactionsSettleRoute
 }
 export interface FileRoutesById {
@@ -173,6 +189,7 @@ export interface FileRoutesById {
   '/facility-history': typeof FacilityHistoryRoute
   '/facility-list': typeof FacilityListRoute
   '/facility-transactions': typeof FacilityTransactionsRoute
+  '/reconciliation': typeof ReconciliationRoute
   '/transactions': typeof TransactionsRoute
   '/api/data/app-access': typeof ApiDataAppAccessRoute
   '/api/data/bank-accounts': typeof ApiDataBankAccountsRoute
@@ -181,6 +198,7 @@ export interface FileRoutesById {
   '/api/data/facilities': typeof ApiDataFacilitiesRoute
   '/api/data/facility-lc-amendments': typeof ApiDataFacilityLcAmendmentsRoute
   '/api/data/facility-transactions': typeof ApiDataFacilityTransactionsRouteWithChildren
+  '/api/data/reconcile-scan': typeof ApiDataReconcileScanRoute
   '/api/data/facility-transactions/settle': typeof ApiDataFacilityTransactionsSettleRoute
 }
 export interface FileRouteTypes {
@@ -195,6 +213,7 @@ export interface FileRouteTypes {
     | '/facility-history'
     | '/facility-list'
     | '/facility-transactions'
+    | '/reconciliation'
     | '/transactions'
     | '/api/data/app-access'
     | '/api/data/bank-accounts'
@@ -203,6 +222,7 @@ export interface FileRouteTypes {
     | '/api/data/facilities'
     | '/api/data/facility-lc-amendments'
     | '/api/data/facility-transactions'
+    | '/api/data/reconcile-scan'
     | '/api/data/facility-transactions/settle'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -215,6 +235,7 @@ export interface FileRouteTypes {
     | '/facility-history'
     | '/facility-list'
     | '/facility-transactions'
+    | '/reconciliation'
     | '/transactions'
     | '/api/data/app-access'
     | '/api/data/bank-accounts'
@@ -223,6 +244,7 @@ export interface FileRouteTypes {
     | '/api/data/facilities'
     | '/api/data/facility-lc-amendments'
     | '/api/data/facility-transactions'
+    | '/api/data/reconcile-scan'
     | '/api/data/facility-transactions/settle'
   id:
     | '__root__'
@@ -235,6 +257,7 @@ export interface FileRouteTypes {
     | '/facility-history'
     | '/facility-list'
     | '/facility-transactions'
+    | '/reconciliation'
     | '/transactions'
     | '/api/data/app-access'
     | '/api/data/bank-accounts'
@@ -243,6 +266,7 @@ export interface FileRouteTypes {
     | '/api/data/facilities'
     | '/api/data/facility-lc-amendments'
     | '/api/data/facility-transactions'
+    | '/api/data/reconcile-scan'
     | '/api/data/facility-transactions/settle'
   fileRoutesById: FileRoutesById
 }
@@ -256,6 +280,7 @@ export interface RootRouteChildren {
   FacilityHistoryRoute: typeof FacilityHistoryRoute
   FacilityListRoute: typeof FacilityListRoute
   FacilityTransactionsRoute: typeof FacilityTransactionsRoute
+  ReconciliationRoute: typeof ReconciliationRoute
   TransactionsRoute: typeof TransactionsRoute
   ApiDataAppAccessRoute: typeof ApiDataAppAccessRoute
   ApiDataBankAccountsRoute: typeof ApiDataBankAccountsRoute
@@ -264,6 +289,7 @@ export interface RootRouteChildren {
   ApiDataFacilitiesRoute: typeof ApiDataFacilitiesRoute
   ApiDataFacilityLcAmendmentsRoute: typeof ApiDataFacilityLcAmendmentsRoute
   ApiDataFacilityTransactionsRoute: typeof ApiDataFacilityTransactionsRouteWithChildren
+  ApiDataReconcileScanRoute: typeof ApiDataReconcileScanRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -331,6 +357,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof FacilityTransactionsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/reconciliation': {
+      id: '/reconciliation'
+      path: '/reconciliation'
+      fullPath: '/reconciliation'
+      preLoaderRoute: typeof ReconciliationRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/transactions': {
       id: '/transactions'
       path: '/transactions'
@@ -387,6 +420,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiDataFacilityTransactionsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/data/reconcile-scan': {
+      id: '/api/data/reconcile-scan'
+      path: '/api/data/reconcile-scan'
+      fullPath: '/api/data/reconcile-scan'
+      preLoaderRoute: typeof ApiDataReconcileScanRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/data/facility-transactions/settle': {
       id: '/api/data/facility-transactions/settle'
       path: '/settle'
@@ -422,6 +462,7 @@ const rootRouteChildren: RootRouteChildren = {
   FacilityHistoryRoute: FacilityHistoryRoute,
   FacilityListRoute: FacilityListRoute,
   FacilityTransactionsRoute: FacilityTransactionsRoute,
+  ReconciliationRoute: ReconciliationRoute,
   TransactionsRoute: TransactionsRoute,
   ApiDataAppAccessRoute: ApiDataAppAccessRoute,
   ApiDataBankAccountsRoute: ApiDataBankAccountsRoute,
@@ -431,6 +472,7 @@ const rootRouteChildren: RootRouteChildren = {
   ApiDataFacilityLcAmendmentsRoute: ApiDataFacilityLcAmendmentsRoute,
   ApiDataFacilityTransactionsRoute:
     ApiDataFacilityTransactionsRouteWithChildren,
+  ApiDataReconcileScanRoute: ApiDataReconcileScanRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

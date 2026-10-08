@@ -15,7 +15,7 @@ import {
   Wallet,
   CalendarClock,
   ShieldOff,
-
+  Scale,
 } from "lucide-react";
 
 const allNav: { to: string; label: string; icon: typeof LayoutDashboard; feature?: FeatureKey; adminOnly?: boolean }[] = [
@@ -28,6 +28,7 @@ const allNav: { to: string; label: string; icon: typeof LayoutDashboard; feature
   { to: "/facility-history", label: "Facility Transaction History", icon: History, feature: "facility_history" },
   { to: "/transactions", label: "Transaction History", icon: History, feature: "transactions" },
   { to: "/facility-list", label: "Facility List", icon: ListChecks, feature: "facility_list" },
+  { to: "/reconciliation", label: "Bank Reconciliation", icon: Scale, feature: "reconciliation" },
   { to: "/access", label: "Access Control", icon: ShieldOff, adminOnly: true },
 ];
 
